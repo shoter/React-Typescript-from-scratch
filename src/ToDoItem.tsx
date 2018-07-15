@@ -17,7 +17,7 @@ export default class ToDoItem extends React.Component<IToDoItemProps, IToDoItemS
 
     render() {
         return (
-            <div className="toDoItem" >
+            <div className={"toDoItem" + (this.state.checked?" checked":"")} >
                 <input checked={this.state.checked} onClick={this.onClick.bind(this)} type="checkbox"/>
                 <span>
                     {this.props.name}

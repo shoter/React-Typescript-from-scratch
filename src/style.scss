@@ -1,12 +1,30 @@
-.div
+.toDoList
 {
-    color:red;
-    a 
+    display: grid;
+    grid-template-columns: auto 50px auto;
+    grid-auto-flow: column;
+    justify-content: stretch;
+    .toDoItem 
     {
-        color:blue;
-    }
-    span
-    {
-        color:green;
+        transition: .5s;
+        grid-column-start:1;
+
+        border:1px solid gray;
+        padding: 1rem 0.5rem;
+
+        margin-bottom: 1rem;
+
+        span
+        {
+            margin-left:1rem;
+        }
+
+        &.checked
+        {
+            background-color:rgba(0,255,0,0.1);
+            grid-column-start:3;
+        }
+
+        
     }
 }

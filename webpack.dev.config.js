@@ -1,6 +1,7 @@
 var path = require('path');
 var nodeExternals = require('webpack-node-externals');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     mode: "development",
@@ -14,27 +15,32 @@ module.exports = {
     entry: path.join(__dirname, "src", "index.tsx"),
     module: {
         rules: [{
-            test: /\.tsx?$/,
-            loader: "awesome-typescript-loader",
-            //https://github.com/TypeStrong/ts-loader/issues/40
-            //loose used to enable hot-reload
-           // loader: 'babel?loose=all!ts-loader',
-            exclude: /(node_modules|build)/,
-        },
-        {
-            enforce: "pre",
-            test: /\.js$/,
-            exclude: /(node_modules|build)/,
-            use: [
-                {
+                test: /\.tsx?$/,
+                loader: "awesome-typescript-loader",
+                //https://github.com/TypeStrong/ts-loader/issues/40
+                //loose used to enable hot-reload
+                // loader: 'babel?loose=all!ts-loader',
+                exclude: /(node_modules|build)/,
+            },
+            {
+                enforce: "pre",
+                test: /\.js$/,
+                exclude: /(node_modules|build)/,
+                use: [{
                     loader: "source-map-loader"
-                }
-            ]
-        }
-    ]
+                }]
+            },
+            {
+                test: /\.scss$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: ["css-loader", "sass-loader"]
+                })
+            }
+        ]
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js']
+        extensions: ['.tsx', '.ts', '.js', ".scss"]
     },
     output: {
         filename: 'bundle.js',
@@ -50,18 +56,23 @@ module.exports = {
     },
     devServer: {
         contentBase: path.join(__dirname, "/build"),
-        before: function (app) {
-        },
-        after: function(app) {
-            
+        before: function (app) {},
+        after: function (app) {
+
         }
     },
     plugins: [
-        new HtmlWebpackPlugin(
-            {
-            title: "React Typescript from scratch",
-            template: path.join(__dirname, "src", "index.html")
-        }
-    )
+        new HtmlWebpackPlugin({
+                title: "React Typescript from scratch",
+                template: path.join(__dirname, "src", "index.html")
+            },
+
+        ),
+        new ExtractTextPlugin({
+            filename:"bundle.js",
+            allChunks: true,
+            disable: true
+        })
     ]
+
 };
