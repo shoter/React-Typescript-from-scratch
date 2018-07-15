@@ -1,5 +1,4 @@
-import React, {Component} from "react";
-import ReactDOM from "react-dom";
+import React from "react";
 
 export default class ToDoItem extends React.Component<IToDoItemProps, IToDoItemState>
 {
@@ -12,9 +11,8 @@ export default class ToDoItem extends React.Component<IToDoItemProps, IToDoItemS
     }
 
     onClick() {
-        this.setState((prevState : IToDoItemState, props: IToDoItemProps) => {
-            checked: !prevState.checked
-        });
+        this.setState((prevState : IToDoItemState, props: IToDoItemProps) => 
+            ({checked: !prevState.checked}));
     }
 
     render() {
