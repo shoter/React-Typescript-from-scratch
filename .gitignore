@@ -23,4 +23,7 @@ chrome-user-data
 .vscode
 *.swp
 *.swo
+typescript-compiled/
 
+#Yarn
+yarn.lock
