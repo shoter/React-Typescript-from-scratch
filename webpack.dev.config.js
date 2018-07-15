@@ -1,16 +1,17 @@
 var path = require('path');
 var nodeExternals = require('webpack-node-externals');
-
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     mode: "development",
+    target: "web",
     node: {
         __dirname: true
     },
     context: __dirname,
     // Enable sourcemaps for debugging webpack's output.
     devtool: "source-map",
-    entry: path.resolve(__dirname, "src/index.tsx"),
+    entry: path.join(__dirname, "src", "index.tsx"),
     module: {
         rules: [{
             test: /\.tsx?$/,
@@ -37,13 +38,30 @@ module.exports = {
     },
     output: {
         filename: 'bundle.js',
+        // This is where webpack-dev-server serves your bundle
+        // which is created in memory.
+        // To use the in-memory bundle,
+        // your <script> 'src' should point to the bundle
+        // prefixed with the 'publicPath', e.g.:
+        //   <script src='http://localhost:9001/assets/bundle.js'>
+        //   </script>
+        publicPath: "/bin",
         path: path.join(__dirname, "/build/")
     },
     devServer: {
+        contentBase: path.join(__dirname, "/build"),
         before: function (app) {
         },
         after: function(app) {
             
         }
-    }
+    },
+    plugins: [
+        new HtmlWebpackPlugin(
+            {
+            title: "React Typescript from scratch",
+            template: path.join(__dirname, "src", "index.html")
+        }
+    )
+    ]
 };
