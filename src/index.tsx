@@ -12,10 +12,11 @@ function todo(id : string, name :string) {
 }
 
 function List(props : {}) {
-    let todos: IToDo[] = [];
-    todos.push(todo("1", "umyj zęby"));
-    todos.push(todo("2", "Złóż biurko"));
-    todos.push(todo("3", "xD"));
+    let todos: IToDo[] = [
+    todo("1", "umyj zęby"),
+    todo("2", "Złóż biurko"),
+    todo("3", "xD")
+    ];
 
     return <ToDoList items={todos} />
 }
