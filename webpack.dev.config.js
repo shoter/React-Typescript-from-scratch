@@ -4,19 +4,33 @@ var nodeExternals = require('webpack-node-externals');
 
 module.exports = {
     mode: "development",
-    target: "node",
     node: {
         __dirname: true
     },
     context: __dirname,
-    entry: path.resolve(__dirname, "src/index.ts"),
-    externals: [nodeExternals()], // in order to ignore all modules in node_modules folder 
+    // Enable sourcemaps for debugging webpack's output.
+    devtool: "source-map",
+    entry: path.resolve(__dirname, "src/index.tsx"),
     module: {
         rules: [{
             test: /\.tsx?$/,
-            loader: 'ts-loader',
-            exclude: /(node_modules|typescript-compiled)/,
-        }]
+            loader: "awesome-typescript-loader",
+            //https://github.com/TypeStrong/ts-loader/issues/40
+            //loose used to enable hot-reload
+           // loader: 'babel?loose=all!ts-loader',
+            exclude: /(node_modules|build)/,
+        },
+        {
+            enforce: "pre",
+            test: /\.js$/,
+            exclude: /(node_modules|build)/,
+            use: [
+                {
+                    loader: "source-map-loader"
+                }
+            ]
+        }
+    ]
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js']
