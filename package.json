@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm-run-all --parallel dev dev-server",
+    "start": "webpack-dev-server --open",
     "dev-server": "webpack-dev-server --progress --hot --inline --color --config ./webpack.dev.config.js",
-    "dev": "webpack --watch --progress --color --config ./webpack.dev.config.js"
+    "dev": "webpack --watch --progress --color --config ./webpack.dev.config.js",
+    "compile": "NODE_ENV=production webpack --config ./webpack.production.config.js"
   },
   "repository": {
     "type": "git",
