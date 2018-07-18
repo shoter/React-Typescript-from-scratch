@@ -1,10 +1,11 @@
-var path = require('path');
-var nodeExternals = require('webpack-node-externals');
+const path = require('path');
+const nodeExternals = require('webpack-node-externals');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
-    mode: "production",
+    mode: "development",
     target: "web",
     node: {
         __dirname: true
@@ -69,10 +70,15 @@ module.exports = {
 
         ),
         new ExtractTextPlugin({
-            filename:"bundle.js",
+            filename:"bundle.css",
             allChunks: true,
             disable: false
         })
-    ]
+    ],
+    optimization: {
+        minimizer: [
+          new UglifyJSPlugin()
+        ]
+      }
 
 };
