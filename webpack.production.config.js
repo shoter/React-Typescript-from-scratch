@@ -52,7 +52,7 @@ module.exports = {
         // prefixed with the 'publicPath', e.g.:
         //   <script src='http://localhost:9001/assets/bundle.js'>
         //   </script>
-        publicPath: "/bin",
+        publicPath: "./",
         path: path.join(__dirname, "/build/")
     },
     devServer: {
